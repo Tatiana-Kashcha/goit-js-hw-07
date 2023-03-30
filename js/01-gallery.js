@@ -42,11 +42,40 @@ function onImgGalleryClick(evt) {
   }
 
   const imgElsource = evt.target.dataset.source;
-  const instance = basicLightbox.create(`
-      <img src='${imgElsource}'>
-  `);
 
+  const instance = basicLightbox.create(
+    `
+      <img src='${imgElsource}'>
+  `,
+    {
+      onShow: (instance) => {
+        onOpenInstance();
+
+        // if (isEscKey) {
+        //   instance.close();
+        // }
+      },
+    }
+  );
   instance.show();
 }
-
 console.log(galleryItems);
+
+function onOpenInstance() {
+  window.addEventListener("keydown", onEscKeyDown);
+}
+
+function onCloseInstance() {
+  window.removeEventListener("keydown", onEscKeyDown);
+}
+
+function onEscKeyDown(event) {
+  console.log(event.code); // для перевірки
+  const isEscKey = event.code === "Escape";
+
+  if (isEscKey) {
+    onCloseInstance();
+  }
+  console.log(isEscKey); // для перевірки
+  return isEscKey;
+}
