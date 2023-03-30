@@ -46,16 +46,17 @@ function onImgGalleryClick(evt) {
 
   const onEscKeyDown = (event) => {
     const isEscKey = event.code === "Escape";
+    console.log(event.code); // для перевірки
 
     if (isEscKey) {
       instance.close();
-      window.removeEventListener("keydown", onEscKeyDown);
     }
     return isEscKey;
   };
 
   const instance = basicLightbox.create(`<img src='${imgElsource}'>`, {
     onShow: () => window.addEventListener("keydown", onEscKeyDown),
+    onClose: () => window.removeEventListener("keydown", onEscKeyDown),
   });
 
   instance.show();
