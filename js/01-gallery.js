@@ -35,6 +35,7 @@ galleryItemsEl.addEventListener("click", onImgGalleryClick);
 
 function onImgGalleryClick(evt) {
   evt.preventDefault();
+
   const ImgGalleryEl = evt.target.classList.contains("gallery__image");
 
   if (!ImgGalleryEl) {
@@ -43,39 +44,22 @@ function onImgGalleryClick(evt) {
 
   const imgElsource = evt.target.dataset.source;
 
-  const instance = basicLightbox.create(
-    `
-      <img src='${imgElsource}'>
-  `,
-    {
-      onShow: (instance) => {
-        onOpenInstance();
+  const onEscKeyDown = (event) => {
+    const isEscKey = event.code === "Escape";
 
-        // if (isEscKey) {
-        //   instance.close();
-        // }
-      },
+    if (isEscKey) {
+      instance.close();
+      window.removeEventListener("keydown", onEscKeyDown);
     }
-  );
+    console.log(event.code); //для перевірки
+    console.log(isEscKey); //для перевірки
+    return isEscKey;
+  };
+
+  const instance = basicLightbox.create(`<img src='${imgElsource}'>`, {
+    onShow: () => window.addEventListener("keydown", onEscKeyDown),
+  });
+
   instance.show();
 }
 console.log(galleryItems);
-
-function onOpenInstance() {
-  window.addEventListener("keydown", onEscKeyDown);
-}
-
-function onCloseInstance() {
-  window.removeEventListener("keydown", onEscKeyDown);
-}
-
-function onEscKeyDown(event) {
-  console.log(event.code); // для перевірки
-  const isEscKey = event.code === "Escape";
-
-  if (isEscKey) {
-    onCloseInstance();
-  }
-  console.log(isEscKey); // для перевірки
-  return isEscKey;
-}
