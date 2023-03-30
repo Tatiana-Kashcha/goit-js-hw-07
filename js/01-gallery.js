@@ -51,8 +51,6 @@ function onImgGalleryClick(evt) {
       instance.close();
       window.removeEventListener("keydown", onEscKeyDown);
     }
-    console.log(event.code); //для перевірки
-    console.log(isEscKey); //для перевірки
     return isEscKey;
   };
 
