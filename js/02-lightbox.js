@@ -28,18 +28,7 @@ galleryItemsEl.insertAdjacentHTML("beforeend", itemsImages);
 
 galleryItemsEl.addEventListener("click", onImgGalleryClick);
 
-function onImgGalleryClick(evt) {
-  evt.preventDefault();
-
-  const ImgGalleryEl = evt.target.classList.contains("gallery__image");
-
-  if (!ImgGalleryEl) {
-    return;
-  }
-
-  const galleryLightBox = new SimpleLightbox(".gallery a", {
-    captionsData: "alt",
-    captionDelay: 250,
-  });
-}
-console.log(galleryItems);
+const galleryLightBox = new SimpleLightbox(".gallery a", {
+  captionsData: "alt",
+  captionDelay: 250,
+});
