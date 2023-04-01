@@ -26,10 +26,6 @@ const makeGalleryItems = (itemsEl) => {
 const itemsImages = galleryItems.map(makeGalleryItems).join("");
 galleryItemsEl.insertAdjacentHTML("beforeend", itemsImages);
 
-function onImgGalleryClick(evt) {
-  evt.preventDefault();
-}
-
 const galleryLightBox = new SimpleLightbox(".gallery a", {
   captionsData: "alt",
   captionDelay: 250,
